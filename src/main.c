@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:17:33 by telain            #+#    #+#             */
-/*   Updated: 2016/07/04 16:43:43 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/13 21:21:36 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ int		main(int ac, char **av)
 {
 	t_env	e;
 
-	if (ac)
-		ft_putendl(av[0]);
-	new_env(&e);
+	if (ac != 2)
+	{
+		ft_putendl("Please choose a map");
+		exit(0);
+	}
+	new_env(&e, av[1]);
 	mlx_key_hook(e.win, find_key, &e);
 	mlx_hook(e.win, 2, 0, expose_find_key, &e);
 	draw_window(&e);

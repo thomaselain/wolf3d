@@ -6,7 +6,7 @@
 #    By: telain <telain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/22 17:19:39 by telain            #+#    #+#              #
-#    Updated: 2016/07/04 16:41:28 by telain           ###   ########.fr        #
+#    Updated: 2016/08/14 17:13:03 by telain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =  main.c\
 	  draw_window.c\
 	  inputs.c\
 	  raycast.c\
+	  print_map.c\
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 
@@ -48,5 +49,9 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
+
+go:
+	make
+	./wolf3d maps/map_2
 
 .PHONY: clean fclean
