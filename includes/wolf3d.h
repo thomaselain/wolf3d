@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/14 17:47:55 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/15 17:02:00 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "mlx.h"
-# define WIN_X 60
-# define WIN_Y 40
+# define WIN_X 600
+# define WIN_Y 400
 # define FOV 60
 # define DEG_TO_RAD(X) (X * (M_PI / 180))
 # define RAD_TO_DEG(X) (X / (M_PI / 180))
@@ -40,18 +40,15 @@ typedef struct	s_env
 	int		bpp;
 	int		sl;
 	int		endi;
-	int		pos[2];
+	double	ray_x;
+	double	ray_y;
+	double	pos[2];
 	double	angle;
-	int		diff_vx;
-	int		diff_vy;
-	int		diff_hx;
-	int		diff_hy;
-	int		hx;
-	int		hy;
-	int		vx;
-	int		vy;
-	int		vert_dist;
-	int		hori_dist;
+	double	diff_x;
+	double	diff_y;
+	double	dir_x;
+	double	dir_y;
+	double	hit;
 }				t_env;
 
 /*
@@ -93,10 +90,9 @@ void		do_input(t_env *e, int key);
 **	raycast.c
 */
 
-int			find_vert_inter(t_env *e);
-int			find_hori_inter(t_env *e);
-void		scan(t_env *e);
+void		init_raycast(t_env *e);
 void		raycast(t_env *e);
+void		scan(t_env *e);
 
 /*
 **	print_map.c

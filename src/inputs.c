@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/30 13:55:49 by telain            #+#    #+#             */
-/*   Updated: 2016/08/14 14:53:46 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/14 22:48:50 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ void	do_input(t_env *e, int key)
 		e->angle += 1;
 		e->angle = (e->angle > 360) ? 0 : e->angle;
 	}
-	else if (key == KEY_A && e->map[e->pos[1] / 64][e->pos[0] / 64 - 1] != '1')
-		e->pos[0] -= 10;
-	else if (key == KEY_W && e->map[e->pos[1] / 64 - 1][e->pos[0] / 64] != '1')
-		e->pos[1] -= 10;
-	else if (key == KEY_S && e->map[e->pos[1] / 64 + 1][e->pos[0] / 64] != '1')
-		e->pos[1] += 10;
-	else if (key == KEY_D && e->map[e->pos[1] / 64][e->pos[0] / 64 + 1] != '1')
-		e->pos[0] += 10;
+	else if (key == KEY_A && e->map[(int)e->pos[1]]
+			[(int)e->pos[0] - 1] != '1')
+		e->pos[0] -= 0.3;
+	else if (key == KEY_W && e->map[(int)e->pos[1] - 1]
+			[(int)e->pos[0]] != '1')
+		e->pos[1] -= 0.3;
+	else if (key == KEY_S && e->map[(int)e->pos[1] + 1]
+			[(int)e->pos[0]] != '1')
+		e->pos[1] += 0.3;
+	else if (key == KEY_D && e->map[(int)e->pos[1]]
+			[(int)e->pos[0] + 1] != '1')
+		e->pos[0] += 0.3;
 	refresh(0, e);
 }

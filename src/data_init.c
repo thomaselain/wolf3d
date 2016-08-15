@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/14 18:19:25 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/15 16:17:19 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	new_env(t_env *e, char *av)
 {
 	e->map_name = av;
 	load_map(e);
-	e->angle = 0;
-	e->pos[0] = 64 * 10;
-	e->pos[1] = 64 * 10;
+	e->angle = 60;
+	e->pos[0] = 12.4;
+	e->pos[1] = 10.2;
 	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WIN_X, WIN_Y, "Loup3D");
+	e->win = mlx_new_window(e->mlx, WIN_X, WIN_Y, ft_strjoin("Loup3d : ", av));
 	e->img = mlx_new_image(e->mlx, WIN_X, WIN_Y);
 }
 
