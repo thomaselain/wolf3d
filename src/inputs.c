@@ -6,11 +6,21 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/30 13:55:49 by telain            #+#    #+#             */
-/*   Updated: 2016/08/14 22:48:50 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/15 21:09:43 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
+
+void	move(t_env *e)
+{
+	if (e->map[(int)(e->pos[1] + e->move_y)]
+			[(int)(e->pos[0] + e->move_x)] != '1')
+	{
+		e->pos[0] += e->move_x * e->speed;
+		e->pos[1] += e->move_y * e->speed;
+	}
+}
 
 int		find_key(int key, void *e)
 {
@@ -32,31 +42,31 @@ int		expose_find_key(int key, void *e)
 
 void	do_input(t_env *e, int key)
 {
-	if (key == KEY_UP)
-		ft_putstr("up\n");
-	else if (key == KEY_DOWN)
-		ft_putstr("down\n");
-	else if (key == KEY_LEFT)
-	{
-		e->angle -= 1;
-		e->angle = (e->angle < 0) ? 360 : e->angle;
-	}
+	if (key == KEY_LEFT)
+		e->angle -= 2;
 	else if (key == KEY_RIGHT)
+		e->angle += 2;
+	if (key == KEY_A)
 	{
-		e->angle += 1;
-		e->angle = (e->angle > 360) ? 0 : e->angle;
+		e->move_x = -cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90));
+		e->move_y = -sin(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90));
 	}
-	else if (key == KEY_A && e->map[(int)e->pos[1]]
-			[(int)e->pos[0] - 1] != '1')
-		e->pos[0] -= 0.3;
-	else if (key == KEY_W && e->map[(int)e->pos[1] - 1]
-			[(int)e->pos[0]] != '1')
-		e->pos[1] -= 0.3;
-	else if (key == KEY_S && e->map[(int)e->pos[1] + 1]
-			[(int)e->pos[0]] != '1')
-		e->pos[1] += 0.3;
-	else if (key == KEY_D && e->map[(int)e->pos[1]]
-			[(int)e->pos[0] + 1] != '1')
-		e->pos[0] += 0.3;
+	else if (key == KEY_W)
+	{
+		e->move_x = cos(DEG_TO_RAD(e->angle));
+		e->move_y = sin(DEG_TO_RAD(e->angle));
+	}
+	else if (key == KEY_S)
+	{
+		e->move_x = -cos(DEG_TO_RAD(e->angle));
+		e->move_y = -sin(DEG_TO_RAD(e->angle));
+	}
+	else if (key == KEY_D)
+	{
+		e->move_x = cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90));
+		e->move_y = sin(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90));
+	}
+	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
+		move(e);
 	refresh(0, e);
 }

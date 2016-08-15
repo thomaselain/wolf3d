@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/15 17:02:00 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/15 21:08:18 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "mlx.h"
-# define WIN_X 600
-# define WIN_Y 400
+# define WIN_X 800
+# define WIN_Y 600
 # define FOV 60
 # define DEG_TO_RAD(X) (X * (M_PI / 180))
 # define RAD_TO_DEG(X) (X / (M_PI / 180))
@@ -40,15 +40,16 @@ typedef struct	s_env
 	int		bpp;
 	int		sl;
 	int		endi;
-	double	ray_x;
-	double	ray_y;
+	int		angle;
+	int		ray_hit_x;
+	int		ray_hit_y;
 	double	pos[2];
-	double	angle;
-	double	diff_x;
-	double	diff_y;
-	double	dir_x;
-	double	dir_y;
-	double	hit;
+	double	ray_angle;
+	double	dist_ray;
+	double	move_x;
+	double	speed;
+	double	move_y;
+	int		side;
 }				t_env;
 
 /*
@@ -85,6 +86,7 @@ int			refresh(int key, void *e);
 int			find_key(int key, void *e);
 int			expose_find_key(int key, void *e);
 void		do_input(t_env *e, int key);
+void		move(t_env *e);
 
 /*
 **	raycast.c
