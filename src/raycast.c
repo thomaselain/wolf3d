@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/14 22:05:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/15 22:02:59 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/16 21:49:30 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@ void	draw_line(t_env *e, int col)
 {
 	int		height;
 	int		i;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 
 	i = 0;
-	height = 277 /  e->dist_ray * 2;
+	r = e->dist_ray < 15 ? ((e->side >> 16) & 0xff) * e->dist_ray / 15 : 0;
+	g = e->dist_ray < 15 ? ((e->side >> 8 ) & 0xff) * e->dist_ray / 15 : 0;
+	b = e->dist_ray < 15 ? (e->side & 0xff) * e->dist_ray / 15 : 0;
+	e->fog = (r << 16) + (g << 8) + b;
+	height = 277 / e->dist_ray;
 	if (e->dist_ray == 0)
 		height = WIN_Y;
 	while (i < (double)WIN_Y / 2.0 - (double)height / 2.0)
 		pixel_put(e, col, i++, 0x303030);
 	while (i < (double)WIN_Y / 2.0 + (double)height / 2.0)
-		pixel_put(e, col, i++, e->side);
+			pixel_put(e, col, i++, -e->fog);
 	while (i < WIN_Y - 1)
 		pixel_put(e, col, i++, 0x101010);
 }
@@ -37,14 +44,15 @@ void	raycast(t_env *e)
 	double	diff_x;
 	double	diff_y;
 
-	diff_x = cos(DEG_TO_RAD(e->ray_angle)) / 500;
-	diff_y = sin(DEG_TO_RAD(e->ray_angle)) / 500;
+	diff_x = cos(DEG_TO_RAD(e->ray_angle)) / 1000;
+	diff_y = sin(DEG_TO_RAD(e->ray_angle)) / 1000;
 	ray_x = e->pos[0];
 	ray_y = e->pos[1];
 	hit = 0;
 	while (hit == 0)
 	{
-		if (e->map[(int)ray_y][(int)ray_x] != '0')
+		if (!e->map[(int)(ray_y + diff_y)][(int)(ray_x + diff_x)]
+				|| e->map[(int)ray_y][(int)ray_x] != '0')
 			hit = 1;
 		else
 		{
@@ -54,8 +62,10 @@ void	raycast(t_env *e)
 	}
 	e->ray_hit_x = (int)ray_x;
 	e->ray_hit_y = (int)ray_y;
-	e->side = (e->pos[0] > e->ray_hit_x) ? 0xff0000 : 0x0000ff;
-	e->dist_ray = sqrt(ray_x * ray_x + ray_y * ray_y) * cos(DEG_TO_RAD(e->angle) - DEG_TO_RAD(e->ray_angle));
+	e->side = 0xff00000;
+	e->dist_ray = sqrt((e->pos[0] - ray_x) * (e->pos[0] - ray_x) +
+			(e->pos[1] - ray_y) * (e->pos[1] - ray_y)) *
+		cos(DEG_TO_RAD(e->angle) - DEG_TO_RAD(e->ray_angle));
 }
 
 void	scan(t_env *e)

@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/15 21:08:18 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/16 20:37:24 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <math.h>
 # include "mlx.h"
 # define WIN_X 800
-# define WIN_Y 600
+# define WIN_Y 400
 # define FOV 60
 # define DEG_TO_RAD(X) (X * (M_PI / 180))
 # define RAD_TO_DEG(X) (X / (M_PI / 180))
@@ -50,6 +50,7 @@ typedef struct	s_env
 	double	speed;
 	double	move_y;
 	int		side;
+	int		fog;
 }				t_env;
 
 /*

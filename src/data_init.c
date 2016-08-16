@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/15 21:42:05 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/16 17:23:12 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	new_env(t_env *e, char *av)
 	e->map_name = av;
 	load_map(e);
 	e->speed = 0.25;
-	e->angle = -135;
+	e->angle = 0;
 	e->pos[0] = 2;
 	e->pos[1] = 2;
 	e->mlx = mlx_init();
