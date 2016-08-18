@@ -6,7 +6,7 @@
 #    By: telain <telain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/22 17:19:39 by telain            #+#    #+#              #
-#    Updated: 2016/08/16 21:01:35 by telain           ###   ########.fr        #
+#    Updated: 2016/08/17 17:15:37 by telain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,6 @@ re: fclean all
 
 go:
 	make
-	./wolf3d maps/map_2
+	./wolf3d maps/map_3
 
 .PHONY: clean fclean

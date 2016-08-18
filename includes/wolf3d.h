@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/16 20:37:24 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/18 01:25:35 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct	s_env
 	double	move_x;
 	double	speed;
 	double	move_y;
+	double	prev_ray_x;
+	double	prev_ray_y;
 	int		side;
 	int		fog;
 }				t_env;

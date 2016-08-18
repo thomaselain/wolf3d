@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/14 22:05:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/16 21:49:30 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/18 02:41:21 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	raycast(t_env *e)
 	double	diff_x;
 	double	diff_y;
 
-	diff_x = cos(DEG_TO_RAD(e->ray_angle)) / 1000;
-	diff_y = sin(DEG_TO_RAD(e->ray_angle)) / 1000;
+	diff_x = cos(DEG_TO_RAD(e->ray_angle)) / 2000;
+	diff_y = sin(DEG_TO_RAD(e->ray_angle)) / 2000;
 	ray_x = e->pos[0];
 	ray_y = e->pos[1];
 	hit = 0;
@@ -60,9 +60,11 @@ void	raycast(t_env *e)
 			ray_y += diff_y;
 		}
 	}
+	e->prev_ray_x = e->ray_hit_x - 2 * diff_x;
+	e->prev_ray_y = e->ray_hit_y - 2 * diff_y;
 	e->ray_hit_x = (int)ray_x;
 	e->ray_hit_y = (int)ray_y;
-	e->side = 0xff00000;
+	e->side = 0xff0000;
 	e->dist_ray = sqrt((e->pos[0] - ray_x) * (e->pos[0] - ray_x) +
 			(e->pos[1] - ray_y) * (e->pos[1] - ray_y)) *
 		cos(DEG_TO_RAD(e->angle) - DEG_TO_RAD(e->ray_angle));
@@ -73,6 +75,7 @@ void	scan(t_env *e)
 	int		col;
 
 	col = 0;
+	e->angle = (e->angle < 0) ? e->angle += 360 : e->angle % 360;
 	e->ray_angle = e->angle - 30;
 	while (col < WIN_X)
 	{
@@ -81,6 +84,7 @@ void	scan(t_env *e)
 		draw_line(e, col++);
 	}
 	printf("angle : %d\ncos(angle + 90) : %f\t\tsin(angle + 90) : %f\n", e->angle, cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90)), sin(DEG_TO_RAD(e->angle + 90) + DEG_TO_RAD(90)));
+	printf("truc : %d", (int)((double)(1 + 1)));
 	e->ray_angle = e->angle;
 	raycast(e);
 	print_map(e, e->ray_hit_x, e->ray_hit_y);
