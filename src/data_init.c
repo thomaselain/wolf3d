@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/16 17:23:12 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/20 17:30:56 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 void	new_env(t_env *e, char *av)
 {
+	int		sky_w;
+	int		sky_h;
+
+	sky_w = 900;
+	sky_h = 500;
 	e->map_name = av;
 	load_map(e);
 	e->speed = 0.25;
 	e->angle = 0;
+	e->fog_dist = 15;
 	e->pos[0] = 2;
 	e->pos[1] = 2;
+	e->ground_color = 0xffffff;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WIN_X, WIN_Y, ft_strjoin("Loup3d : ", av));
 	e->img = mlx_new_image(e->mlx, WIN_X, WIN_Y);
+	if (!(e->sky = mlx_xpm_file_to_image(e->mlx, SKY_FILE,
+					&sky_w, &sky_h)))
+		display_error(2);
+	e->sky_img = mlx_get_data_addr(e->sky, &(e->bpp), &(e->sl), &(e->endi));
 }
 
 void	load_map(t_env *e)

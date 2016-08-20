@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/30 13:55:49 by telain            #+#    #+#             */
-/*   Updated: 2016/08/18 01:03:54 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/20 17:31:19 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	move(t_env *e)
 {
-	if (e->map[(int)(e->pos[1] + e->move_y)]
-			[(int)(e->pos[0] + e->move_x)] != '1')
+	if (e->map[(int)(e->pos[1] + e->move_y / 2)]
+			[(int)(e->pos[0] + e->move_x / 2)] != '1')
 	{
 		e->pos[0] += e->move_x * e->speed;
 		e->pos[1] += e->move_y * e->speed;
@@ -35,7 +35,7 @@ int		expose_find_key(int key, void *e)
 {
 	if (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT ||
 			key == KEY_RIGHT || key == KEY_W || key == KEY_A || key == KEY_S ||
-			key == KEY_D)
+			key == KEY_D || key == KEY_MINUS || key == KEY_EQUAL)
 		do_input(e, key);
 	return (key);
 }
@@ -46,6 +46,8 @@ void	do_input(t_env *e, int key)
 		e->angle -= 3;
 	else if (key == KEY_RIGHT)
 		e->angle += 3;
+	e->fog_dist = (key == KEY_MINUS && e->fog_dist > 4) ? e->fog_dist - 1 : e->fog_dist;
+	e->fog_dist = (key == KEY_EQUAL && e->fog_dist < 20) ? e->fog_dist + 1 : e->fog_dist;
 	if (key == KEY_A)
 	{
 		e->move_x = -cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90)) / 2;

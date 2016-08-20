@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/18 01:25:35 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/20 17:14:30 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # include <math.h>
 # include "mlx.h"
 # define WIN_X 800
-# define WIN_Y 400
+# define WIN_Y 500
+# define SKY_FILE "images/sky.xpm"
+# define SKY_W 1836
+# define SKY_H 500
 # define FOV 60
 # define DEG_TO_RAD(X) (X * (M_PI / 180))
 # define RAD_TO_DEG(X) (X / (M_PI / 180))
@@ -32,6 +35,8 @@ typedef struct	s_env
 	void	*win;
 	void	*mlx;
 	void	*img;
+	void	*sky;
+	char	*sky_img;
 	char	*data;
 	char	**map;
 	char	*map_name;
@@ -41,8 +46,9 @@ typedef struct	s_env
 	int		sl;
 	int		endi;
 	int		angle;
-	int		ray_hit_x;
-	int		ray_hit_y;
+	int		case_hit_x;
+	int		case_hit_y;
+	int		sky_pixel;
 	double	pos[2];
 	double	ray_angle;
 	double	dist_ray;
@@ -52,8 +58,16 @@ typedef struct	s_env
 	double	prev_ray_x;
 	double	prev_ray_y;
 	int		side;
+	double	fog_dist;
 	int		fog;
+	int		ground_color;
 }				t_env;
+
+/*
+**	main.c
+*/
+
+int		destroy(int key, void *e);
 
 /*
 **	data_init.c
@@ -74,6 +88,7 @@ void		display_error(int error);
 */
 
 void		pixel_put(t_env *e, int x, int y, int color);		
+int			find_ground_color(t_env *e, double x, double y);
 
 /*
 **	draw_window.c
@@ -95,6 +110,7 @@ void		move(t_env *e);
 **	raycast.c
 */
 
+void		get_pixel_color(t_env *e, int x, int y);
 void		init_raycast(t_env *e);
 void		raycast(t_env *e);
 void		scan(t_env *e);
