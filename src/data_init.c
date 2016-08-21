@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:26:35 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/21 16:56:47 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	new_env(t_env *e, char *av)
 	int		sky_w;
 	int		sky_h;
 
-	sky_w = 900;
-	sky_h = 500;
-	e->map_name = av;
+	sky_w = SKY_W;
+	sky_h = SKY_H;
+	e->map_name = ft_strdup(av);
 	load_map(e);
 	e->speed = 0.25;
 	e->angle = 0;
@@ -49,6 +49,8 @@ void	load_map(t_env *e)
 	char	*line;
 
 	fd = open(e->map_name, O_RDONLY, S_IREAD);
+	if (fd < 0)
+		display_error(3);
 	size = 0;
 	while (get_next_line(fd, &line) > 0)
 		size++;

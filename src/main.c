@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:17:33 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:11:42 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/21 16:37:30 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putendl("Please choose a map");
+		ft_putendl("Usage : ./wolf3d <map>");
 		exit(0);
 	}
 	new_env(&e, av[1]);
