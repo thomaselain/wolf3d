@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/20 17:30:56 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/21 16:26:35 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ void	new_env(t_env *e, char *av)
 	load_map(e);
 	e->speed = 0.25;
 	e->angle = 0;
-	e->fog_dist = 15;
-	e->pos[0] = 2;
-	e->pos[1] = 2;
+	e->fog_dist = 4;
+	if (e->map[2][2] && e->map[2][2] == '0' && e->map_size_x > 1 &&
+			e->map_size_y > 1)
+	{
+		e->pos[0]= 2;
+		e->pos[1] = 2;
+	}
+	else
+		display_error(3);
 	e->ground_color = 0xffffff;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WIN_X, WIN_Y, ft_strjoin("Loup3d : ", av));

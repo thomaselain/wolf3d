@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/14 22:05:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/20 17:35:43 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/21 16:22:16 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ void	raycast(t_env *e)
 	e->prev_ray_x = ray_x - 2 * diff_x;
 	e->prev_ray_y = ray_y - 2 * diff_y;
 	e->side =  ((int)e->prev_ray_x < (int)ray_x ||
-			(int)e->prev_ray_x > (int)ray_x || ray_x == (int)ray_x
-			|| ray_y == (int)ray_y) ? 0xffffff : 0xff0000;
+			(int)e->prev_ray_x > (int)ray_x) ? 0xffffff : 0xff0000;
 	e->dist_ray = sqrt((e->pos[0] - ray_x) * (e->pos[0] - ray_x) +
 			(e->pos[1] - ray_y) * (e->pos[1] - ray_y)) *
 		cos(DEG_TO_RAD(e->angle) - DEG_TO_RAD(e->ray_angle));
