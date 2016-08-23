@@ -6,7 +6,7 @@
 #    By: telain <telain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/22 17:19:39 by telain            #+#    #+#              #
-#    Updated: 2016/08/23 17:42:15 by telain           ###   ########.fr        #
+#    Updated: 2016/08/23 19:40:43 by telain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,5 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
-
-go:
-	make
-	./wolf3d maps/map_1
 
 .PHONY: clean fclean

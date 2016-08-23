@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/05 15:58:15 by telain            #+#    #+#             */
-/*   Updated: 2016/08/23 17:08:56 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 18:54:15 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		print_map(t_env *e, int x, int y)
 		i = -1;
 		while (e->map[j][++i])
 		{
-			if ((int)e->pos[0] == i && (int)e->pos[1]  == j)
+			if ((int)e->pos[0] == i && (int)e->pos[1] == j)
 				ft_putstr("\e[31m");
 			else if (x == i && y == j)
 				ft_putstr("\e[32m");
@@ -36,7 +36,6 @@ void		print_map(t_env *e, int x, int y)
 		ft_putchar('\n');
 	}
 	print_infos();
-	printf("x : %f\ny : %f\n", e->pos[0], e->pos[1]);
 }
 
 void		print_infos(void)

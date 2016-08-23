@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/30 13:55:49 by telain            #+#    #+#             */
-/*   Updated: 2016/08/23 17:00:46 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 20:09:33 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	do_input(t_env *e, int key)
 		e->fog_dist = (e->fog_dist == 4) ? 15 : 4;
 	if (key == KEY_R)
 		e->xray = (e->xray == 0) ? 1 : 0;
+	move_inputs(e, key);
+	refresh(0, e);
+}
+
+void	move_inputs(t_env *e, int key)
+{
 	if (key == KEY_A)
 	{
 		e->move_x = -cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90)) / 2;
@@ -72,5 +78,4 @@ void	do_input(t_env *e, int key)
 	}
 	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
 		move(e);
-	refresh(0, e);
 }

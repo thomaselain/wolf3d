@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 16:41:21 by telain            #+#    #+#             */
-/*   Updated: 2016/08/20 17:29:52 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 20:08:30 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,30 @@ int		find_ground_color(t_env *e, double x, double y)
 	unsigned int	b;
 	unsigned int	dist;
 
-	dist = sqrt(((double)(WIN_X) - x) * ((double)(WIN_X) - x) + ((double)(WIN_Y) - y)
-			* ((double)(WIN_Y) - y)) / e->fog_dist;
-	r = dist < e->fog_dist * 2 ? ((e->ground_color >> 16) & 0xff) * dist / -e->fog_dist / 2 : 0;
-	g = dist < e->fog_dist * 2 ? ((e->ground_color >> 8) & 0xff) * dist / -e->fog_dist / 2 : 0;
-	b = dist < e->fog_dist * 2 ? (e->ground_color & 0xff) * dist / -e->fog_dist / 2 : 0;
+	dist = sqrt(((double)(WIN_X) - x) * ((double)(WIN_X) - x) +
+			((double)(WIN_Y) - y) * ((double)(WIN_Y) - y)) / e->fog_dist;
+	r = dist < e->fog_dist * 2 ? ((e->ground_color >> 16) & 0xff) *
+		dist / -e->fog_dist / 2 : 0;
+	g = dist < e->fog_dist * 2 ? ((e->ground_color >> 8) & 0xff) *
+		dist / -e->fog_dist / 2 : 0;
+	b = dist < e->fog_dist * 2 ? (e->ground_color & 0xff) * dist /
+		-e->fog_dist / 2 : 0;
 	return ((r << 16) + (g << 8) + b);
+}
+
+void	fog(t_env *e)
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+
+	r = e->dist_ray < e->fog_dist ?
+		((e->side >> 16) & 0xff) * e->dist_ray / -e->fog_dist : 0;
+	g = e->dist_ray < e->fog_dist ?
+		((e->side >> 8) & 0xff) * e->dist_ray / -e->fog_dist : 0;
+	b = e->dist_ray < e->fog_dist ?
+		(e->side & 0xff) * e->dist_ray / -e->fog_dist : 0;
+	e->fog = (r << 16) + (g << 8) + b;
+	e->fog = (e->dist_ray < 0.1 && e->side == 0xffffff) ? 0xffffff : e->fog;
+	e->fog = (e->dist_ray < 0.1 && e->side == 0xff0000) ? 0xff0000 : e->fog;
 }
