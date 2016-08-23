@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/27 11:55:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:56:47 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 18:08:34 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	new_env(t_env *e, char *av)
 	e->speed = 0.25;
 	e->angle = 0;
 	e->fog_dist = 4;
+	e->xray = 0;
+	e->side = 0xffffff;
 	if (e->map[2][2] && e->map[2][2] == '0' && e->map_size_x > 1 &&
 			e->map_size_y > 1)
 	{

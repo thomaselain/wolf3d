@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/14 22:05:46 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:22:16 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 18:12:50 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	draw_line(t_env *e, int col)
 	unsigned char	b;
 
 	i = 0;
+	if (e->dist_ray <= 0)
+	{
+		e->dist_ray = 0.01;
+		e->side = 0x0000ff;
+	}
 	r = e->dist_ray < e->fog_dist ?
 		((e->side >> 16) & 0xff) * e->dist_ray / -e->fog_dist : 0;
 	g = e->dist_ray < e->fog_dist ?
@@ -83,8 +88,11 @@ void	raycast(t_env *e)
 	e->case_hit_y = (int)ray_y;
 	e->prev_ray_x = ray_x - 2 * diff_x;
 	e->prev_ray_y = ray_y - 2 * diff_y;
-	e->side =  ((int)e->prev_ray_x < (int)ray_x ||
-			(int)e->prev_ray_x > (int)ray_x) ? 0xffffff : 0xff0000;
+	e->prev_color = e->side;
+	e->side =  (((int)e->prev_ray_x < (int)ray_x ||
+			(int)e->prev_ray_x > (int)ray_x)) ? 0xffffff : 0xff0000;
+	if (e->map[(int)ray_y][(int)ray_x] == '2' && e->xray == 1)
+		e->side = 0x00000ff;
 	e->dist_ray = sqrt((e->pos[0] - ray_x) * (e->pos[0] - ray_x) +
 			(e->pos[1] - ray_y) * (e->pos[1] - ray_y)) *
 		cos(DEG_TO_RAD(e->angle) - DEG_TO_RAD(e->ray_angle));
@@ -100,8 +108,8 @@ void	scan(t_env *e)
 	while (col < WIN_X)
 	{
 		raycast(e);
-		e->ray_angle += 60 / (double)WIN_X;
 		draw_line(e, col++);
+		e->ray_angle += 60 / (double)WIN_X;
 	}
 	e->ray_angle = e->angle;
 	raycast(e);

@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:32:34 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 18:11:57 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ typedef struct	s_env
 	int		sl;
 	int		endi;
 	int		angle;
+	int		sky_pixel;
 	int		case_hit_x;
 	int		case_hit_y;
-	int		sky_pixel;
+	int		xray;
+	int		prev_color;
 	double	pos[2];
 	double	ray_angle;
 	double	dist_ray;
@@ -120,5 +122,6 @@ void		scan(t_env *e);
 */
 
 void		print_map(t_env *e, int x, int y);
+void		print_infos(void);
 
 #endif

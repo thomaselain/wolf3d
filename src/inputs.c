@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/30 13:55:49 by telain            #+#    #+#             */
-/*   Updated: 2016/08/21 16:29:28 by telain           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:00:46 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int		find_key(int key, void *e)
 {
 	if (key == KEY_ESC)
 		exit(0);
-	else if (key == KEY_A)
+	else if (key == KEY_F || key == KEY_R)
 		do_input(e, key);
 	return (key);
 }
 
 int		expose_find_key(int key, void *e)
 {
-	if (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT ||
+	if (key == KEY_LEFT ||
 			key == KEY_RIGHT || key == KEY_W || key == KEY_A || key == KEY_S ||
-			key == KEY_D || key == KEY_F)
+			key == KEY_D)
 		do_input(e, key);
 	return (key);
 }
@@ -48,6 +48,8 @@ void	do_input(t_env *e, int key)
 		e->angle += 3;
 	if (key == KEY_F)
 		e->fog_dist = (e->fog_dist == 4) ? 15 : 4;
+	if (key == KEY_R)
+		e->xray = (e->xray == 0) ? 1 : 0;
 	if (key == KEY_A)
 	{
 		e->move_x = -cos(DEG_TO_RAD(e->angle) + DEG_TO_RAD(90)) / 2;
