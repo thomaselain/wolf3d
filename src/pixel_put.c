@@ -6,11 +6,23 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 16:41:21 by telain            #+#    #+#             */
-/*   Updated: 2016/08/23 20:08:30 by telain           ###   ########.fr       */
+/*   Updated: 2016/10/01 03:13:41 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
+
+int		shade(int c)
+{
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+
+	r = ((c >> 16) & 0xff) * 0.5;
+	g = ((c >> 8) & 0xff) * 0.5;
+	b = (c & 0xff) * 0.5;
+	return ((r << 16) + (g << 8) + b);
+}
 
 void	pixel_put(t_env *e, int x, int y, int color)
 {

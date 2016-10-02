@@ -6,7 +6,7 @@
 /*   By: telain <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/25 16:23:50 by telain            #+#    #+#             */
-/*   Updated: 2016/08/23 20:10:45 by telain           ###   ########.fr       */
+/*   Updated: 2016/10/01 03:17:40 by telain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define SKY_H 500
 # define FOV 60
 # define DEG_TO_RAD(X) (X * (M_PI / 180))
-# define RAD_TO_DEG(X) (X / (M_PI / 180))
-# define GRID(X) (X / 64)
+# define RAD_TO_DEG(X) (X / (M_PI / 180)
+# define BLUE 0x0000ff
 
 typedef struct	s_env
 {
@@ -46,21 +46,23 @@ typedef struct	s_env
 	int			endi;
 	int			angle;
 	int			sky_pixel;
-	int			case_hit_x;
-	int			case_hit_y;
+	int			hit_x;
+	int			hit_y;
 	int			xray;
 	double		pos[2];
 	double		ray_angle;
 	double		dist_ray;
 	double		move_x;
-	double		speed;
 	double		move_y;
-	double		prev_ray_x;
-	double		prev_ray_y;
+	double		speed;
+	double		prev_rayx;
+	double		prev_rayy;
 	int			side;
 	double		fog_dist;
 	int			fog;
 	int			ground_color;
+	int			i;
+	int			j;
 }				t_env;
 
 /*
@@ -75,14 +77,14 @@ int				destroy(int key, void *e);
 
 void			new_env(t_env *e, char *av);
 void			load_map(t_env *e);
-char			*load_line(char *line, int size);
+void			load_line(char *line, int size, t_env *e);
 void			init_values(t_env *e);
 
 /*
 **	display.c
 */
 
-void			display_error(int error);
+void			display_error(int error, t_env *e);
 
 /*
 **	pixel_put.c
@@ -90,6 +92,7 @@ void			display_error(int error);
 
 void			fog(t_env *e);
 void			pixel_put(t_env *e, int x, int y, int color);
+int				shade(int c);
 int				find_ground_color(t_env *e, double x, double y);
 
 /*
@@ -116,14 +119,7 @@ void			move_inputs(t_env *e, int key);
 
 void			get_pixel_color(t_env *e, int x, int y);
 void			draw_line(t_env *e, int col);
-void			raycast(t_env *e);
+void			raycast(t_env *e, double diff_x, double diff_y);
 void			scan(t_env *e);
-
-/*
-**	print_map.c
-*/
-
-void			print_map(t_env *e, int x, int y);
-void			print_infos(void);
 
 #endif

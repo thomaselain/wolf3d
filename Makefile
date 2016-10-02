@@ -6,7 +6,7 @@
 #    By: telain <telain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/22 17:19:39 by telain            #+#    #+#              #
-#    Updated: 2016/08/23 19:40:43 by telain           ###   ########.fr        #
+#    Updated: 2016/09/18 15:18:00 by telain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = wolf3d
 PATH_SRC = src/
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 
 SRC =  main.c\
 	  data_init.c\
@@ -23,7 +23,6 @@ SRC =  main.c\
 	  draw_window.c\
 	  inputs.c\
 	  raycast.c\
-	  print_map.c\
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 
@@ -37,7 +36,8 @@ $(NAME): $(OBJ)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c -o $@ $^
-	@printf "[\e[32m$(NAME) object\e[0m]\e[32m--\e[0m--\e[32m--\e[0m> : $@"
+	@printf "[\e[32m$(NAME) object\e[0m]\e[32m--\e[0m--\e[32m--\e[0m>"
+	@printf "\t: [\e[32m✓\e[0m] : $@"
 	@printf "\e[0m\n"
 
 clean:
